@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional, List
-from uuid import UUID
+from uuid import UUID, uuid4
 
 
-class HealthcareProvider(BaseModel):
+class HealthcareProviderBase(BaseModel):
     active: Optional[bool] = True
     name: str
     qualification: List[str]
@@ -15,8 +15,8 @@ class HealthcareProvider(BaseModel):
     address: str
 
 
-class HealthcareProviderShow(BaseModel):
-    providerID: UUID
+class HealthcareProvider(BaseModel):
+    providerID: UUID = Field(default_factory=uuid4)
     active: Optional[bool] = True
     name: str
     qualification: List[str]

@@ -1,39 +1,39 @@
 from fastapi import HTTPException, status, Response
 from app.database import db
 from app import schemas
+from uuid import UUID
 
 
 def get_all():
     return db.db
 
 
-def get(id: int):
-    if not db.get(id):
+def get(providerID: UUID):
+    if not db.get(providerID):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {id}  does not exists')
-    return db[id]
+                            detail=f'Health Provider with providerID {str(providerID)} does not exists')
+    return db[providerID]
 
 
-def create(request: schemas.HealthcareProvider):
-    id: int = request.providerID
-    if db.get(id):
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f'Health Provider with id {id} already exists')
-    db[request.providerID] = (request.dict())
-    return request
+def create(request: schemas.HealthcareProviderBase):
+    new_provider = schemas.HealthcareProvider.from_orm(request)
+    db[new_provider.providerID] = (new_provider.dict())
+    return new_provider
 
 
-def update(id: int, request: schemas.HealthcareProvider):
-    if not db.get(id):
+def update(providerID: UUID, request: schemas.HealthcareProvider):
+    if providerID != request.providerID:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    if not db.get(providerID):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {id}  does not exists')
-    db[id] = (request.dict())
+                            detail=f'Health Provider with id {str(providerID)} does not exists')
+    db[providerID] = (request.dict())
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-def destroy(id: int):
-    if not db.get(id):
+def destroy(providerID: UUID):
+    if not db.get(providerID):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {id}  does not exists')
-    db.pop(id, None)
+                            detail=f'Health Provider with id {str(providerID)} does not exists')
+    db.pop(providerID, None)
     return Response(status_code=status.HTTP_204_NO_CONTENT)

@@ -1,5 +1,6 @@
 from app.config import settings
 from app.utils import Singleton
+from uuid import UUID
 import json
 
 
@@ -21,6 +22,8 @@ class Database(metaclass=Singleton):
         return self.db[self._key(key)]
 
     def __setitem__(self, key, value):
+        # separately serialize providerID
+        value['providerID'] = str(value['providerID'])
         self.db[self._key(key)] = value
         self._save()
 
@@ -30,10 +33,10 @@ class Database(metaclass=Singleton):
     def __repr__(self):
         return self.db.__repr__()
 
-    def _key(self, key: int):
+    def _key(self, key: UUID):
         return key.__str__()
 
-    def pop(self, key: int, default=None):
+    def pop(self, key: UUID, default=None):
         res = self.db.pop(self._key(key), default)
         self._save()
         return res

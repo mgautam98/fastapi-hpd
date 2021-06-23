@@ -1,1 +1,38 @@
-{}
+{
+    "8f4aac97-2287-4373-9453-7486a182216c": {
+        "providerID": "8f4aac97-2287-4373-9453-7486a182216c",
+        "active": true,
+        "name": "string",
+        "qualification": [
+            "string"
+        ],
+        "speciality": [
+            "string"
+        ],
+        "phone": [
+            "string"
+        ],
+        "department": "string",
+        "organization": "string",
+        "location": "string",
+        "address": "string"
+    },
+    "5d3be5fc-b1ae-4b2f-8b58-9d79d04dc04e": {
+        "providerID": "5d3be5fc-b1ae-4b2f-8b58-9d79d04dc04e",
+        "active": true,
+        "name": "string",
+        "qualification": [
+            "string"
+        ],
+        "speciality": [
+            "string"
+        ],
+        "phone": [
+            "string"
+        ],
+        "department": "string",
+        "organization": "string",
+        "location": "string",
+        "address": "string"
+    }
+}
