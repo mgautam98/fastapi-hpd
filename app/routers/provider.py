@@ -1,6 +1,6 @@
+from fastapi import APIRouter, status
 from app import schemas
-from app.database import db
-from fastapi import APIRouter, status, HTTPException
+from app.repository import provider
 
 router = APIRouter(
     prefix='/provider',
@@ -10,39 +10,24 @@ router = APIRouter(
 
 @router.get('/')
 def get_all():
-    return db
+    return provider.get_all()
 
 
 @router.get('/{id}')
 def get(id: int):
-    if not db.get(id):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {id}  does not exists')
-    return db[id]
+    return provider.get(id)
 
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def add(request: schemas.HealthcareProvider):
-    id: int = request.providerID
-    if db.get(id):
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail=f'Health Provider with id {id} already exists')
-    db[request.providerID] = (request.dict())
-    return request
+    return provider.create(request)
 
 
-@router.put('/{id}', status_code=status.HTTP_202_ACCEPTED)
+@router.put('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def update(id: int, request: schemas.HealthcareProvider):
-    if not db.get(id):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {id}  does not exists')
-    db[id] = request
+    return provider.update(id, request)
 
 
-@router.delete('/{id}', status_code=status.HTTP_201_CREATED)
+@router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete(id: int):
-    if not db.get(id):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {id}  does not exists')
-    db.pop(id, None)
-    return {'task': 'deletion sucessful!'}
+    return provider.destroy(id)
