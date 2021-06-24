@@ -26,7 +26,7 @@ def add(request: schemas.HealthcareProviderBase):
 
 
 @router.put('/{providerID}', status_code=status.HTTP_204_NO_CONTENT)
-def update(providerID: UUID, request: schemas.HealthcareProvider):
+def update(providerID: UUID, request: schemas.HealthcareProviderBase):
     return provider.update(providerID, request)
 
 

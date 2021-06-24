@@ -36,7 +36,7 @@ class HealthcareProvider(BaseModel):
                 "active": True,
                 "name": "string",
                 "qualification": [
-                    "string"
+                        "string"
                 ],
                 "speciality": [
                     "string"
