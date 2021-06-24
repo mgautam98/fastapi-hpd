@@ -4,18 +4,8 @@ import json
 
 
 class Database(metaclass=Singleton):
-    def __init__(self, path='./'):
-        self.path = path
+    def __init__(self):
         self.db = []
-        self.path = path
-
-    def __load(self):
-        with open(self.path, 'r') as f:
-            self.db = json.load(f)
-
-    def __save(self):
-        with open(self.path, 'w') as f:
-            json.dump(self.db, f, ensure_ascii=False, indent=4)
 
     def add(self, value):
         self.db.append(value)
@@ -43,4 +33,4 @@ class Database(metaclass=Singleton):
         return self.db
 
 
-db = Database(path=settings.DATABASE_PATH)
+db = Database()
