@@ -1,39 +1,46 @@
 from fastapi import HTTPException, status, Response
+from fastapi.encoders import jsonable_encoder
 from app.database import db
 from app import schemas
 from uuid import UUID
 
 
 def get_all():
-    return db.db
+    return [*db.values()]
 
 
 def get(providerID: UUID):
-    if not db.get(providerID):
+    providerID: str = jsonable_encoder(providerID)
+    provider = db.find(providerID)
+    if not provider:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Health Provider with providerID {str(providerID)} does not exists')
-    return db[providerID]
+    return provider
 
 
 def create(request: schemas.HealthcareProviderBase):
-    new_provider = schemas.HealthcareProvider.from_orm(request)
-    db[new_provider.providerID] = (new_provider.dict())
+    new_provider = jsonable_encoder(schemas.HealthcareProvider.from_orm(request))
+    db.add(new_provider)
     return new_provider
 
 
 def update(providerID: UUID, request: schemas.HealthcareProvider):
     if providerID != request.providerID:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
-    if not db.get(providerID):
+
+    updated_provider = jsonable_encoder(request)
+    providerID: str = jsonable_encoder(providerID)
+    if not db.find(providerID):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Health Provider with id {str(providerID)} does not exists')
-    db[providerID] = (request.dict())
+    db.update(providerID, updated_provider)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 def destroy(providerID: UUID):
-    if not db.get(providerID):
+    providerID: str = jsonable_encoder(providerID)
+    if not db.find(providerID):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Health Provider with id {str(providerID)} does not exists')
-    db.pop(providerID, None)
+    db.delete(providerID)
     return Response(status_code=status.HTTP_204_NO_CONTENT)

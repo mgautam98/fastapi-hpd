@@ -1,49 +1,46 @@
 from app.config import settings
 from app.utils import Singleton
-from uuid import UUID
 import json
 
 
 class Database(metaclass=Singleton):
-    def __init__(self, path):
+    def __init__(self, path='./'):
         self.path = path
-        self.db = {}
-        self._load()
+        self.db = []
+        self.path = path
 
-    def _load(self):
+    def __load(self):
         with open(self.path, 'r') as f:
             self.db = json.load(f)
 
-    def _save(self):
+    def __save(self):
         with open(self.path, 'w') as f:
-            json.dump(self.db, f)
+            json.dump(self.db, f, ensure_ascii=False, indent=4)
 
-    def __getitem__(self, key):
-        return self.db[self._key(key)]
+    def add(self, value):
+        self.db.append(value)
 
-    def __setitem__(self, key, value):
-        # separately serialize providerID
-        value['providerID'] = str(value['providerID'])
-        self.db[self._key(key)] = value
-        self._save()
+    def findall(self, id, key='providerID'):
+        return [record for record in self.db if record[key] == id]
 
-    def get(self, key):
-        return self.db.get(self._key(key))
+    def find(self, id, key='providerID'):
+        for record in self.db:
+            if record[key] == id:
+                return record
 
-    def __repr__(self):
-        return self.db.__repr__()
+    def delete(self, id, key='providerID'):
+        for idx, record in enumerate(self.db):
+            if record[key] == id:
+                return self.db.pop(idx)
+        return None
 
-    def _key(self, key: UUID):
-        return key.__str__()
+    def update(self, id, value, key='providerID'):
+        for idx, record in enumerate(self.db):
+            if record[key] == id:
+                self.db[idx] = value
 
-    def pop(self, key: UUID, default=None):
-        res = self.db.pop(self._key(key), default)
-        self._save()
-        return res
+    def values(self):
+        return self.db
 
 
 db = Database(path=settings.DATABASE_PATH)
-
-
-# # Part 1
-# db = {}

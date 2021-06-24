@@ -1,6 +1,7 @@
 from fastapi import APIRouter, status
 from app import schemas
 from app.repository import provider
+from typing import List
 from uuid import UUID
 
 router = APIRouter(
@@ -9,7 +10,7 @@ router = APIRouter(
 )
 
 
-@router.get('/')
+@router.get('/', response_model=List[schemas.HealthcareProvider])
 def get_all():
     return provider.get_all()
 

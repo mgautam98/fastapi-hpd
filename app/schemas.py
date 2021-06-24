@@ -29,3 +29,24 @@ class HealthcareProvider(BaseModel):
 
     class Config():
         orm_mode = True
+
+        schema_extra = {
+            'example': {
+                "providerID": "providerID",
+                "active": True,
+                "name": "string",
+                "qualification": [
+                    "string"
+                ],
+                "speciality": [
+                    "string"
+                ],
+                "phone": [
+                    "string"
+                ],
+                "department": "string",
+                "organization": "string",
+                "location": "string",
+                "address": "string"
+            }
+        }
