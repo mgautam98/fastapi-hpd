@@ -5,8 +5,8 @@ from app import schemas
 from uuid import UUID
 
 
-def get_all():
-    return [*db.values()]
+def get_all(skip: int, limit: int):
+    return [*db.values()][skip : skip + limit]
 
 
 def get(providerID: UUID):

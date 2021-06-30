@@ -8,8 +8,8 @@ router = APIRouter(prefix="/provider", tags=["Healthcare Providers"])
 
 
 @router.get("/", response_model=List[schemas.HealthcareProvider])
-def get_all():
-    return provider.get_all()
+def get_all(skip: int = 0, limit: int = 20):
+    return provider.get_all(skip, limit)
 
 
 @router.get("/{providerID}", response_model=schemas.HealthcareProvider)
