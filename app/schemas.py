@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, constr, validator, ValidationError
 from typing import Optional, List
 from uuid import UUID, uuid4
 
@@ -18,7 +18,7 @@ class HealthcareProviderBase(BaseModel):
 class HealthcareProvider(BaseModel):
     providerID: UUID = Field(default_factory=uuid4)
     active: Optional[bool] = True
-    name: str
+    name: constr(min_length=2, max_length=40)
     qualification: List[str]
     speciality: List[str]
     phone: List[str]
@@ -27,26 +27,20 @@ class HealthcareProvider(BaseModel):
     location: Optional[str] = None
     address: str
 
-    class Config():
+    class Config:
         orm_mode = True
 
         schema_extra = {
-            'example': {
+            "example": {
                 "providerID": "providerID",
                 "active": True,
                 "name": "string",
-                "qualification": [
-                        "string"
-                ],
-                "speciality": [
-                    "string"
-                ],
-                "phone": [
-                    "string"
-                ],
+                "qualification": ["string"],
+                "speciality": ["string"],
+                "phone": ["string"],
                 "department": "string",
                 "organization": "string",
                 "location": "string",
-                "address": "string"
+                "address": "string",
             }
         }
