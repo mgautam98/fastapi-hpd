@@ -1,12 +1,17 @@
 from fastapi import FastAPI
 from app.routers import provider
+from fastapi.responses import RedirectResponse
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
+
+# ################
+# FastAPI App
+# ################
 
 app = FastAPI()
 
 
-origins = ["*"]
+origins = ["localhost"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,8 +21,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ################
+# Routing
+# ################
+
 
 app.include_router(provider.router)
+
+
+# ################
+# OpenAPI specs
+# ################
+
+
+@app.get("/")
+def docs_redirect():
+    return RedirectResponse(url="/docs")
 
 
 def openapi_specs():
