@@ -11,16 +11,18 @@ def get_all():
 
 def get(providerID: UUID):
     providerID: str = jsonable_encoder(providerID)
-    provider = db.find(providerID)
+    provider = db[providerID]
     if not provider:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with providerID {str(providerID)} does not exists')
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Health Provider with providerID {str(providerID)} does not exists",
+        )
     return provider
 
 
 def create(request: schemas.HealthcareProviderBase):
     new_provider = jsonable_encoder(schemas.HealthcareProvider.from_orm(request))
-    db.add(new_provider)
+    db[new_provider["providerID"]] = new_provider
     return new_provider
 
 
@@ -30,17 +32,21 @@ def update(providerID: UUID, request: schemas.HealthcareProvider):
 
     updated_provider = jsonable_encoder(request)
     providerID: str = jsonable_encoder(providerID)
-    if not db.find(providerID):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {str(providerID)} does not exists')
-    db.update(providerID, updated_provider)
+    if not db[providerID]:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Health Provider with id {str(providerID)} does not exists",
+        )
+    db[providerID] = updated_provider
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 def destroy(providerID: UUID):
     providerID: str = jsonable_encoder(providerID)
-    if not db.find(providerID):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {str(providerID)} does not exists')
-    db.delete(providerID)
+    if not db[providerID]:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Health Provider with id {str(providerID)} does not exists",
+        )
+    db.pop(providerID)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
