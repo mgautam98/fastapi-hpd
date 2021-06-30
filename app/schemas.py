@@ -1,11 +1,17 @@
-from pydantic import BaseModel, Field, constr, validator, ValidationError
+from pydantic import BaseModel, Field, constr, validator
 from typing import Optional, List
 from uuid import UUID, uuid4
+from re import compile
+
+
+phone_regex = compile(
+    r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$"
+)
 
 
 class HealthcareProviderBase(BaseModel):
     active: Optional[bool] = True
-    name: str
+    name: constr(min_length=2, max_length=40)
     qualification: List[str]
     speciality: List[str]
     phone: List[str]
@@ -13,6 +19,12 @@ class HealthcareProviderBase(BaseModel):
     organization: str
     location: Optional[str] = None
     address: str
+
+    @validator("phone", each_item=True)
+    def validate_phone(cls, v):
+        if not phone_regex.search(v):
+            raise ValueError("Not valid phone number")
+        return v
 
 
 class HealthcareProvider(BaseModel):
@@ -26,6 +38,12 @@ class HealthcareProvider(BaseModel):
     organization: str
     location: Optional[str] = None
     address: str
+
+    @validator("phone", each_item=True)
+    def validate_phone(cls, v):
+        if not phone_regex.search(v):
+            raise ValueError("Not valid phone number")
+        return v
 
     class Config:
         orm_mode = True
