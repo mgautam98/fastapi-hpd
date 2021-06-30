@@ -1,12 +1,32 @@
 from fastapi import FastAPI
 from app.routers import provider
+from fastapi.responses import RedirectResponse
 from fastapi.openapi.utils import get_openapi
 
+
+# ################
+# FastAPI App
+# ################
 
 app = FastAPI()
 
 
+# ################
+# Routing
+# ################
+
+
 app.include_router(provider.router)
+
+
+# ################
+# OpenAPI specs
+# ################
+
+
+@app.get("/")
+def docs_redirect():
+    return RedirectResponse(url="/docs")
 
 
 def openapi_specs():
