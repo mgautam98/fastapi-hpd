@@ -26,18 +26,19 @@ def create(request: schemas.HealthcareProviderBase):
     return new_provider
 
 
-def update(providerID: UUID, request: schemas.HealthcareProvider):
-    if providerID != request.providerID:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY)
-
-    updated_provider = jsonable_encoder(request)
+def update(providerID: UUID, request: schemas.HealthcareProviderBase):
+    updated_provider = jsonable_encoder(schemas.HealthcareProvider.from_orm(request))
     providerID: str = jsonable_encoder(providerID)
+
     if not db[providerID]:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Health Provider with id {str(providerID)} does not exists",
         )
+
+    updated_provider["providerID"] = providerID
     db[providerID] = updated_provider
+
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
