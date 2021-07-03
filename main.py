@@ -10,9 +10,8 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-app.mount("/", StaticFiles(directory="public", html=True), name="public")
 
-origins = ["*"]
+origins = ["localhost"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,8 +26,10 @@ app.add_middleware(
 # ################
 
 
-app.include_router(provider.router)
+app.include_router(provider.router, prefix="/api")
 
+# Must only be after include_router
+app.mount("/", StaticFiles(directory="public", html=True), name="public")
 
 # ################
 # OpenAPI specs
