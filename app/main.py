@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from app.routers import provider
-from fastapi.responses import RedirectResponse
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -11,7 +10,7 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-app.mount("/", StaticFiles(directory="public"), name="public")
+app.mount("/", StaticFiles(directory="public", html=True), name="public")
 
 origins = ["localhost"]
 
