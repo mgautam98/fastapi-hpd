@@ -126,7 +126,7 @@ def generate(total_recs: int = 100):
             "organization": fake.company() + choice(orgs),
             "active": True,
             "department": choice(departments) if randint(0, 1) else None,
-            "location": fake.address() if randint(0, 1) else None,
+            "location": fake.city() if randint(0, 1) else None,
             "phone": [fake.phone_number() for _ in range(2)],
             "qualification": [choice(qualifications) for _ in range(2)],
             "speciality": [choice(specialities) for _ in range(2)],
@@ -153,5 +153,5 @@ def save_json(data, path="./database/records.json"):
 
 
 if __name__ == "__main__":
-    save_pickle(generate(100))
-    # save_json(generate(100))
+    # save_pickle(generate(100))
+    save_json(generate(300))
