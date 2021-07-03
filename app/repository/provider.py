@@ -5,16 +5,18 @@ from app import schemas
 from uuid import UUID
 
 
-def get_all():
-    return [*db.values()]
+def get_all(skip: int, limit: int):
+    return [*db.values()][skip : skip + limit]
 
 
 def get(providerID: UUID):
     providerID: str = jsonable_encoder(providerID)
     provider = db.find(providerID)
     if not provider:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with providerID {str(providerID)} does not exists')
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Health Provider with providerID {str(providerID)} does not exists",
+        )
     return provider
 
 
@@ -29,10 +31,12 @@ def update(providerID: UUID, request: schemas.HealthcareProviderBase):
     providerID: str = jsonable_encoder(providerID)
 
     if not db.find(providerID):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {str(providerID)} does not exists')
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Health Provider with id {str(providerID)} does not exists",
+        )
 
-    updated_provider['providerID'] = providerID
+    updated_provider["providerID"] = providerID
     db.update(providerID, updated_provider)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
@@ -40,7 +44,9 @@ def update(providerID: UUID, request: schemas.HealthcareProviderBase):
 def destroy(providerID: UUID):
     providerID: str = jsonable_encoder(providerID)
     if not db.find(providerID):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f'Health Provider with id {str(providerID)} does not exists')
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Health Provider with id {str(providerID)} does not exists",
+        )
     db.delete(providerID)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
