@@ -34,7 +34,7 @@ async function getResults(prev = false) {
  * */
 async function getAllRecords(skip = 0, limit = 10) {
     await clearResults()
-    fetch(`http://localhost:8000/provider?skip=${skipG}&limit=${limitG}`)
+    fetch(`http://localhost:8000/api/provider?skip=${skipG}&limit=${limitG}`)
         .then(response => {
             if (response.status != 200) {
                 console.log(response)
@@ -55,7 +55,7 @@ async function getAllRecords(skip = 0, limit = 10) {
  * @param {int} id - record id
  * */
 const getRecord = (id => {
-    axios.get(`http://localhost:8000/provider/${id}`)
+    axios.get(`http://localhost:8000/api/provider/${id}`)
         .then(response => {
             if (response.status != 200) {
                 console.log(response)
@@ -73,7 +73,7 @@ const getRecord = (id => {
  * @param {object} data - data to be edited
  * */
 const editRecord = (id, data) => {
-    axios.put(`http://localhost:8000/provider/${id}`, data)
+    axios.put(`http://localhost:8000/api/provider/${id}`, data)
         .then(response => {
             if (response.status != 204) {
                 console.log(response)
@@ -89,7 +89,7 @@ const editRecord = (id, data) => {
  * @param {object} data - data to be posted
  * */
 const createRecord = (data) => {
-    axios.post('http://localhost:8000/provider', data)
+    axios.post('http://localhost:8000/api/provider', data)
         .then(response => {
             if (response.status != 201) {
                 console.log(response)
@@ -105,7 +105,7 @@ const createRecord = (data) => {
  * @param {int} id - record id
  * */
 const deleteRecord = (id => {
-    axios.delete(`http://localhost:8000/provider/${id}`)
+    axios.delete(`http://localhost:8000/api/provider/${id}`)
         .then(response => {
             if (response.status != 200) {
                 console.log(response)
