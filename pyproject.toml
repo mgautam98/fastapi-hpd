@@ -8,6 +8,7 @@ authors = ["Gautam Mishra <mishragautam96@gmail.com>"]
 python = "^3.9"
 fastapi = "^0.65.2"
 uvicorn = "^0.14.0"
+aiofiles = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.2"
