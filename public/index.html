@@ -10,7 +10,135 @@
 </head>
 
 <body>
-    <h1>Testing</h1>
+    <div class="main-container">
+
+        <!-- Search Bar -->
+        <div class="flex w-1/2 mx-auto py-8">
+            <div class="search-input">
+                <input class="search-input-style focus:outline-none focus:shadow-outline" type="text"
+                    placeholder="search here..">
+            </div>
+            <div class="search-button">
+                <a href="#">Search</a>
+            </div>
+        </div>
+
+        <!-- results navigator -->
+        <div class="w-1/2 mx-auto">
+            <div class="bg-white shadow-lg rounded my-6">
+                <table class="table-style">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="table-title-col">
+                                Name</th>
+                            <th class="table-title-col">
+                                Organization</th>
+                            <th class="table-title-col">
+                                Qualification</th>
+                            <th class="table-title-col">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="results">
+                        <tr class="table-row">
+                            <td class="table-item">Random Name</td>
+                            <td class="table-item">Rsome org</td>
+                            <td class="table-item">qualification</td>
+                            <td class="table-item">
+                                <a href="#" class="table-button button-view">
+                                    View</a>
+                                <a href="#" class="table-button button-edit">
+                                    Edit</a>
+                                <a href="#" class="table-button button-delete">
+                                    Delete</a>
+                            </td>
+                        </tr>
+                        <tr class="table-row">
+                            <td class="table-item">Random Name</td>
+                            <td class="table-item">Rsome org</td>
+                            <td class="table-item">qualification</td>
+                            <td class="table-item">
+                                <a href="#" class="table-button button-view">
+                                    View</a>
+                                <a href="#" class="table-button button-edit">
+                                    Edit</a>
+                                <a href="#" class="table-button button-delete">
+                                    Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <!-- navigation buttons -->
+                <div class="flex flex-col items-center py-2">
+                    <div class="text-sm text-gray-500">
+                        Showing results 1 to 10 of 200
+                    </div>
+                    <div>
+                        <a class="page-nav" onclick="getResults(true)" href="#">Prev</a>
+                        <a class="page-nav" onclick="getResults()" href="#">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Show Overlay -->
+        <div class="hidden show-overlay-bg" id="show-overlay">
+            <div class="show-overlay min-w-max w-1/4">
+                <div class="show-overlay-header">
+                    <div class="show-overlay-title">
+                        Jerome Page
+                    </div>
+                    <div class="activity-indicator">
+                        active
+                    </div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Qualifications</div>
+                    <div class="overlay-item-contents">
+                    </div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Speciality</div>
+                    <div class="overlay-item-contents">
+                        <span>Dermatology And Cosmetology</span>
+                        <span>Clinical Haematology And BMT</span>
+                    </div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Phone</div>
+                    <div class="overlay-item-contents">
+                        <span>+1-120-665-0300x8913</span>
+                        <span>934-421-7610</span>
+                    </div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Department</div>
+                    <div class="overlay-item-content">Nursing Department</div>
+                </div>
+
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Organization</div>
+                    <div class="overlay-item-content">Lopez-Key Hospital</div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Location</div>
+                    <div class="overlay-item-content">Amy Forges</div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Address</div>
+                    <div class="overlay-item-content">69602 Brown Squares Apt. 787\nNorth Troyport, NH 07035</div>
+                </div>
+                <div class="overlay-close">
+                    <a href="#" onclick="toggleShowOverlay()" class="overlay-close-button">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script src="./node_modules/axios/dist/axios.min.js"></script>
+<script src="js/main.js"></script>
 
 </html>
