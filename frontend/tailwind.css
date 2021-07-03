@@ -2,3 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.page-nav {
+    @apply font-bold text-xs rounded px-2 py-1 bg-gray-400 hover:bg-gray-500;
+}
+
+.main-container {
+    @apply h-screen flex flex-col items-center px-8 py-20;
+}
+
+.table-style {
+    @apply text-left w-full border-collapse;
+}
+
+.table-title-col {
+    @apply py-4 px-3 font-bold uppercase text-sm text-gray-600 border-b;
+}
+
+.table-item {
+    @apply py-4 px-3 text-sm border-b;
+}
+
+.table-button {
+    @apply font-bold py-1 px-3 rounded text-xs;
+}
+
+.table-row {
+    @apply hover:bg-gray-100;
+}
+
+.button-view {
+    @apply bg-blue-200 hover:bg-blue-500;
+}
+
+.button-edit {
+    @apply bg-green-200 hover:bg-green-500;
+}
+
+.button-delete {
+    @apply bg-red-200 hover:bg-red-500;
+}
+
+.search-input {
+    @apply flex border rounded items-center p-2 flex-1 shadow-lg;
+}
+
+.search-input-style {
+    @apply w-full text-gray-800 text-xl px-4;
+}
+
+.search-button {
+    @apply bg-blue-500 hover:bg-blue-700 font-medium text-white py-3 px-10 flex-none mx-2 border rounded shadow-lg;
+}
+
+.show-overlay-bg {
+    @apply bg-gray-800 bg-opacity-30 absolute inset-0 justify-center items-center;
+}
+
+.show-overlay {
+    @apply bg-white rounded px-5 py-1 text-sm text-gray-800 flex flex-col;
+}
+
+.show-overlay-header {
+    @apply flex justify-center items-center border-b-2;
+}
+
+.show-overlay-title {
+    @apply py-2 text-lg font-bold;
+}
+
+.activity-indicator {
+    @apply mx-2 px-2 py-1 bg-green-300 rounded-xl text-xs font-light text-black;
+}
+
+.overlay-item {
+    @apply py-2 flex space-x-10;
+}
+
+.overlay-item-title {
+    @apply font-semibold w-1/4;
+}
+
+.overlay-item-content {
+    @apply w-3/4;
+}
+
+.overlay-item-contents {
+    @apply w-3/4 flex flex-col;
+}
+
+.overlay-close {
+    @apply flex justify-center items-center my-2;
+}
+
+.overlay-close-button {
+    @apply bg-blue-200 rounded-lg text-sm px-2 py-1 hover:bg-blue-500;
+}
