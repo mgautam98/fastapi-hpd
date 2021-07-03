@@ -61,7 +61,8 @@ const getRecord = (id => {
                 console.log(response)
                 return
             }
-            addDataToModal(response.data)
+            addDataToShowOverlay(response.data)
+            toggleShowOverlay()
         })
         .catch(error => console.error(error))
 })
@@ -80,6 +81,23 @@ const editRecord = (id, data) => {
                 return
             }
             getRecord(id)
+        })
+        .catch(error => console.error(error))
+}
+
+/**
+ * Show and edit record
+ * @param {int} id - record id
+ * */
+const getRecordAndEdit = (id) => {
+    axios.get(`/api/provider/${id}`)
+        .then(response => {
+            if (response.status != 200) {
+                console.log(response)
+                return
+            }
+            addDataToEditOverlay(response.data)
+            toggleEditOverlay()
         })
         .catch(error => console.error(error))
 }
@@ -152,7 +170,7 @@ const addRow = (data => {
     operations.innerHTML = `
     <a href="#" onClick="getRecord(this.parentNode.parentNode.id)" class="table-button button-view" id="show-btn">
         View</a>
-    <a href="#" class="table-button button-edit">
+    <a href="#" onClick="getRecordAndEdit(this.parentNode.parentNode.id)" class="table-button button-edit">
         Edit</a>
     <a href="#" onClick="deleteRecord(this.parentNode.parentNode.id)" class="table-button button-delete">
         Delete</a>
@@ -190,7 +208,7 @@ const addToTable = (row => {
  * Add data to show Overaly dynamically
  * @param {object} data - data to be added to the overlay
  * */
-const addDataToModal = (data) => {
+const addDataToShowOverlay = (data) => {
     header = document.querySelector('#show-overlay').childNodes[1].children[0]
     header.children[0].textContent = data.name
 
@@ -239,9 +257,49 @@ const addDataToModal = (data) => {
         span.textContent = data.phone[phones]
         phone.children[1].appendChild(span)
     }
-
-    toggleShowOverlay()
 }
+
+const addDataToEditOverlay = (data) => {
+    header = document.querySelector('#edit-overlay').childNodes[1].children[0]
+    header.children[0].textContent = data.name
+
+    name_ = document.querySelector('#edit-overlay').childNodes[1].children[1]
+    name_.children[1].children[0].value = data.name
+
+    department = document.querySelector('#edit-overlay').childNodes[1].children[5]
+    department.children[1].children[0].value = data.department
+
+    org = document.querySelector('#edit-overlay').childNodes[1].children[6]
+    org.children[1].children[0].value = data.organization
+
+    loc = document.querySelector('#edit-overlay').childNodes[1].children[7]
+    loc.children[1].children[0].value = data.location
+
+    address = document.querySelector('#edit-overlay').childNodes[1].children[8]
+    address.children[1].children[0].value = data.address
+
+    qualification = document.querySelector('#edit-overlay').childNodes[1].children[2]
+    qualification_str = ""
+    for (quals in data.qualification) {
+        qualification_str += data.qualification[quals] + ","
+    }
+    qualification.children[1].children[0].value = qualification_str
+
+    speciality = document.querySelector('#edit-overlay').childNodes[1].children[3]
+    speciality_str = ""
+    for (specialities in data.speciality) {
+        speciality_str += data.speciality[specialities] + ","
+    }
+    speciality.children[1].children[0].value = speciality_str
+
+    phone = document.querySelector('#edit-overlay').childNodes[1].children[4]
+    phone_str = ""
+    for (phones in data.phone) {
+        phone_str += data.phone[phones] + ","
+    }
+    phone.children[1].children[0].value = phone_str
+}
+
 
 /**
  * Toggles the show overlay
@@ -249,6 +307,11 @@ const addDataToModal = (data) => {
 const toggleShowOverlay = () => {
     document.getElementById('show-overlay').classList.toggle('hidden');
     document.getElementById('show-overlay').classList.toggle('flex');
+}
+
+const toggleEditOverlay = () => {
+    document.getElementById('edit-overlay').classList.toggle('hidden');
+    document.getElementById('edit-overlay').classList.toggle('flex');
 }
 
 /* Initialize DOM */
