@@ -4,6 +4,7 @@ from app.schemas import HealthcareProvider
 from fastapi.encoders import jsonable_encoder
 import pickle
 import json
+import os
 
 Faker.seed(0)
 
@@ -138,12 +139,18 @@ def generate(total_recs: int = 100):
 
 
 def save_pickle(data, path="./database/records.pickle"):
+    if not os.path.exists(path):
+        open(path, "wb").close()
+
     with open(path, "wb") as f:
         for record in data:
             pickle.dump(record, f)
 
 
 def save_json(data, path="./database/records.json"):
+    if not os.path.exists(path):
+        open(path, "w").close()
+
     json_data = json.dumps(
         data,
         indent=4,
@@ -153,5 +160,5 @@ def save_json(data, path="./database/records.json"):
 
 
 if __name__ == "__main__":
-    # save_pickle(generate(100))
-    save_json(generate(300))
+    save_pickle(generate(300))
+    # save_json(generate(300))

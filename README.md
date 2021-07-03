@@ -6,6 +6,31 @@ Individual parts of projects are on follwing branches
 `part_2`  
 `part_3`  
 
+## Generate mock data
+```
+mkdir database
+python generate_data.py   # generates 300 records in pickle format
+```
+
+## Structure
+```
+├── app
+│   ├── core
+│   │   ├── config.py
+│   │   ├── dataimp.py
+│   │   ├── exceptions.py
+│   │   └── utils.py
+│   ├── database.py
+│   ├── __init__.py
+│   ├── repository
+│   │   └─ provider.py
+│   ├── routers
+│   │   └── provider.py
+│   └── schemas.py
+├── generate_data.py
+└── main.py
+```
+
 ## Run Locally
 
 Clone the project
