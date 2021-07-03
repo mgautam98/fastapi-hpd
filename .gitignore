@@ -3,3 +3,5 @@ __pycache__/
 fastapi-project
 database.pickle
 /database
+
+node_modules/

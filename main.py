@@ -26,7 +26,7 @@ app.add_middleware(
 # ################
 
 
-app.include_router(provider.router)
+app.include_router(provider.router, prefix="/api")
 
 
 # ################
