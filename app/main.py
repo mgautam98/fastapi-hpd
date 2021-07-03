@@ -12,7 +12,7 @@ app = FastAPI()
 
 app.mount("/", StaticFiles(directory="public", html=True), name="public")
 
-origins = ["localhost"]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,7 +27,7 @@ app.add_middleware(
 # ################
 
 
-app.include_router(provider.router, prefix="/api")
+app.include_router(provider.router)
 
 
 # ################
