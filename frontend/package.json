@@ -10,9 +10,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "autoprefixer": "^10.2.6",
-    "axios": "^0.21.1",
     "postcss-cli": "^8.3.1",
     "tailwindcss": "^2.2.4"
   }
