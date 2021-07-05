@@ -2,6 +2,6 @@
 __pycache__/
 fastapi-project
 database.pickle
-/database
+# /database
 
 node_modules/

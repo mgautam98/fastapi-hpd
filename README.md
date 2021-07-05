@@ -54,7 +54,7 @@ Install dependencies, requires `poetry`
 Start the server
 
 ```bash
-  uvicorn main:app --reload
+  uvicorn app.main:app --reload
 ```
 
   
@@ -72,7 +72,7 @@ To deploy this project run
 To run tests, run the following command
 
 ```bash
-  pytests tests
+  pytest
 ```
 
   
