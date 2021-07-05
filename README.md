@@ -85,6 +85,16 @@ To run this project, you will need to add the following environment variables to
 `POSTGRES_PW`  
 
 
+## Screenshots
+
+<p align="center">
+  <img src="https://i.imgur.com/Ie4yHj7.png" alt="Mailsy" width="900"/>
+  <img src="https://i.imgur.com/b62TRtY.png" alt="Mailsy" width="900"/>
+  <img src="https://i.imgur.com/rqmyNZ2.png" alt="Mailsy" width="900"/>
+  <img src="https://i.imgur.com/eH3KXXt.png" alt="Mailsy" width="900"/>
+</p>
+
+
 <!-- 
 ## API Reference
 
