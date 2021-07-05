@@ -31925,7 +31925,7 @@ video {
   padding-bottom: 0.25rem;
   font-size: 0.75rem;
   line-height: 1rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .table-row:hover {
@@ -32128,6 +32128,26 @@ video {
   padding-bottom: 0.25rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.edit-overlay {
+  display: flex;
+  width: 25%;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  flex-direction: column;
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgba(31, 41, 55, var(--tw-text-opacity));
 }
 
 @media (min-width: 640px) {

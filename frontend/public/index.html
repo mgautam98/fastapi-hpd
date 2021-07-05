@@ -36,6 +36,17 @@
                             <th class="table-title-col">
                                 Qualification</th>
                             <th class="table-title-col">
+                                <a class="flex justify-center items-center" onclick="toggleCreateOverlay()" href="#">
+                                    <div
+                                        class="flex space-x-1 bg-green-200 px-2 py-1 rounded-md font-normal text-sm text-black hover:bg-green-500">
+                                        <span>Create</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                </a>
                             </th>
                         </tr>
                     </thead>
@@ -176,6 +187,78 @@
 
         <!-- Create Overlay -->
         <div class="overlay-bg hidden" id="create-overlay">
+            <div class="bg-white rounded px-5 py-3 text-sm text-gray-800 flex flex-col min-w-max w-1/4">
+                <div class="flex justify-center items-center border-b-2">
+                    <div class="px-1 py-2 text-lg font-bold">Create</div>
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Name*</div>
+                    <div class="w-3/4">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 text-gray-700 w-full"
+                            placeholder="Norma Fisher" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10 ">
+                    <div class="font-semibold w-1/4">Qualifications*</div>
+                    <div class="w-3/4">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 w-full"
+                            placeholder="Bachelor of Medicine & Surgery" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Speciality*</div>
+                    <div class="w-3/4">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 w-full"
+                            placeholder="Pain Management, Urology" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Phone*</div>
+                    <div class="w-3/4">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 w-full" placeholder="938-778-4080x16097"
+                            type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Department</div>
+                    <div class="w-3/4">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 w-full"
+                            placeholder="Medical Record Department" type="text">
+                    </div>
+                </div>
+
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Organization*</div>
+                    <div class="w-3/4">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 w-full" placeholder="Castro-Gomez Clinic"
+                            type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Location</div>
+                    <div class="w-3/4">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 w-full" placeholder="Savageshire"
+                            type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Address*</div>
+                    <div class="w-3/4">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 w-full"
+                            placeholder="466 Aaron Fields Ernestbury, NV 50131" type="text">
+                    </div>
+                </div>
+                <div class="flex justify-center items-center my-2 space-x-3">
+                    <a href="#" onclick="toggleCreateOverlay()"
+                        class="bg-red-300 rounded-lg text-sm px-2 py-1 hover:bg-red-500">Cancel</a>
+                    <a href="#" class="bg-green-300 rounded-lg text-sm px-2 py-1 hover:bg-green-500">Create</a>
+                </div>
+            </div>
         </div>
 
     </div>

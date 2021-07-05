@@ -314,5 +314,11 @@ const toggleEditOverlay = () => {
     document.getElementById('edit-overlay').classList.toggle('flex');
 }
 
+const toggleCreateOverlay = () => {
+    document.getElementById('create-overlay').classList.toggle('hidden');
+    document.getElementById('create-overlay').classList.toggle('flex');
+}
+
+
 /* Initialize DOM */
 init()

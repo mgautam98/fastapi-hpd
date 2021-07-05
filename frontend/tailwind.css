@@ -24,7 +24,7 @@
 }
 
 .table-button {
-    @apply font-bold py-1 px-3 rounded text-xs;
+    @apply font-semibold py-1 px-3 rounded text-xs;
 }
 
 .table-row {
