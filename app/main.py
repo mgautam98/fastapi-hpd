@@ -1,7 +1,8 @@
-from fastapi import FastAPI
 from app.routers import provider
-from fastapi.openapi.utils import get_openapi
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.utils import get_openapi
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 # ################
@@ -29,6 +30,12 @@ app.add_middleware(
 app.include_router(provider.router, prefix="/api")
 
 app.mount("/app", StaticFiles(directory="frontend/public", html=True), name="public")
+
+
+@app.get("/")
+def docs_redirect():
+    return RedirectResponse(url="/app")
+
 
 # ################
 # OpenAPI specs
