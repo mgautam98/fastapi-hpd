@@ -28,8 +28,7 @@ app.add_middleware(
 
 app.include_router(provider.router, prefix="/api")
 
-# Must only be after include_router
-app.mount("/", StaticFiles(directory="public", html=True), name="public")
+app.mount("/app", StaticFiles(directory="frontend/public", html=True), name="public")
 
 # ################
 # OpenAPI specs
