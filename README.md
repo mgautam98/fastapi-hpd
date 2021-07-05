@@ -14,21 +14,21 @@ python generate_data.py   # generates 300 records in pickle format
 
 ## Structure
 ```
-├── app
-│   ├── core
-│   │   ├── config.py
-│   │   ├── dataimp.py
-│   │   ├── exceptions.py
-│   │   └── utils.py
-│   ├── database.py
-│   ├── __init__.py
-│   ├── repository
-│   │   └─ provider.py
-│   ├── routers
-│   │   └── provider.py
-│   └── schemas.py
-├── generate_data.py
-└── main.py
+├── app                     # fastapi app
+│   ├── __init__.py         #
+│   ├── core                #
+│   │   ├── config.py       # setting and configurations
+│   │   ├── dataimp.py      # file database implimentation
+│   │   ├── exceptions.py   # exceptions used 
+│   │   └── utils.py        # utils
+│   ├── database.py         # database
+│   ├── repository          # 
+│   │   └─ provider.py      # providers data access
+│   ├── routers             #
+│   │   └── provider.py     # providers routes
+│   ├── schemas.py          # pydantic schemas
+│   └── main.py             # entry to fastapi app
+└── generate_data.py        # mock data generator
 ```
 
 ## Run Locally
