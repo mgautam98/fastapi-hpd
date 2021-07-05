@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Healthcare Provider Directory</title>
+</head>
+
+<body>
+    <div class="main-container">
+
+        <!-- Search Bar -->
+        <div class="flex w-1/2 mx-auto py-8">
+            <div class="search-input">
+                <input class="search-input-style focus:outline-none focus:shadow-outline" type="text"
+                    placeholder="search here..">
+            </div>
+            <div class="search-button">
+                <a href="#">Search</a>
+            </div>
+        </div>
+
+        <!-- results navigator -->
+        <div class="w-1/2 mx-auto">
+            <div class="bg-white shadow-lg rounded my-6">
+                <table class="table-style">
+                    <thead class="bg-gray-200">
+                        <tr>
+                            <th class="table-title-col">
+                                Name</th>
+                            <th class="table-title-col">
+                                Organization</th>
+                            <th class="table-title-col">
+                                Qualification</th>
+                            <th class="table-title-col">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="results">
+                    </tbody>
+                </table>
+
+
+                <!-- navigation buttons -->
+                <div class="flex flex-col items-center py-2">
+                    <div class="text-sm text-gray-500">
+                        Showing results 1 to 10 of 200
+                    </div>
+                    <div>
+                        <a class="page-nav" onclick="getResults(true)" href="#">Prev</a>
+                        <a class="page-nav" onclick="getResults()" href="#">Next</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Show Overlay -->
+        <div class="hidden show-overlay-bg" id="show-overlay">
+            <div class="show-overlay min-w-max w-1/4">
+                <div class="show-overlay-header">
+                    <div class="show-overlay-title">
+                    </div>
+                    <div class="activity-indicator">
+                        active
+                    </div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Qualifications</div>
+                    <div class="overlay-item-contents">
+                    </div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Speciality</div>
+                    <div class="overlay-item-contents">
+                    </div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Phone</div>
+                    <div class="overlay-item-contents">
+                    </div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Department</div>
+                    <div class="overlay-item-content"></div>
+                </div>
+
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Organization</div>
+                    <div class="overlay-item-content"></div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Location</div>
+                    <div class="overlay-item-content"></div>
+                </div>
+                <div class="overlay-item">
+                    <div class="overlay-item-title">Address</div>
+                    <div class="overlay-item-content"></div>
+                </div>
+                <div class="overlay-close">
+                    <a href="#" onclick="toggleShowOverlay()" class="overlay-close-button">Close</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Overlay -->
+        <div class="bg-gray-800 bg-opacity-30 absolute inset-0 hidden justify-center items-center" id="edit-overlay">
+            <div class="bg-white rounded px-5 py-1 text-sm text-gray-800 flex flex-col min-w-max w-1/4">
+                <div class="flex justify-center items-center border-b-2">
+                    <div class="px-3 py-2 text-lg font-bold">
+                    </div>
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Name</div>
+                    <div class="w-3/4 flex flex-col">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100 text-gray-700" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10 ">
+                    <div class="font-semibold w-1/4">Qualifications</div>
+                    <div class="w-3/4 flex flex-col">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Speciality</div>
+                    <div class="w-3/4 flex flex-col">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Phone</div>
+                    <div class="w-3/4 flex flex-col">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Department</div>
+                    <div class="w-3/4 flex flex-col">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100" type="text">
+                    </div>
+                </div>
+
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Organization</div>
+                    <div class="w-3/4 flex flex-col">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Location</div>
+                    <div class="w-3/4 flex flex-col">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100" type="text">
+                    </div>
+                </div>
+                <div class="py-2 flex space-x-10">
+                    <div class="font-semibold w-1/4">Address</div>
+                    <div class="w-3/4 flex flex-col">
+                        <input class="border-2 px-2 py-1 rounded bg-gray-100" type="text">
+                    </div>
+                </div>
+                <div class="flex justify-center items-center my-2 space-x-3">
+                    <a href="#" onclick="toggleEditOverlay()"
+                        class="bg-red-300 rounded-lg text-sm px-2 py-1 hover:bg-red-500">Cancel</a>
+                    <a href="#" class="bg-yellow-300 rounded-lg text-sm px-4 py-1 hover:bg-yellow-500">Save</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script src="js/axios.min.js"></script>
+<script src="js/main.js"></script>
+
+</html>
