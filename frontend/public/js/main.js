@@ -113,6 +113,7 @@ const createRecord = (data) => {
                 console.log(response)
                 return
             }
+            toggleCreateOverlay()
         })
         .catch(error => console.error(error))
 }
@@ -301,19 +302,51 @@ const submitEditRecord = () => {
     var speciality = document.querySelector('#edit-overlay').childNodes[1].children[3].children[1].children[0].value
     var phone = document.querySelector('#edit-overlay').childNodes[1].children[4].children[1].children[0].value
 
+    qualification = qualification.split(',').map(x => x.replace(/^\s/g, ''))
+    speciality = speciality.split(',').map(x => x.replace(/^\s/g, ''))
+    phone = phone.split(',').map(x => x.replace(/^\s/g, ''))
+
     var data = {
-        name: name,
-        department: department,
-        organization: organization,
-        location: location,
-        address: address,
-        qualification: qualification.split(',').map(x => x.replace(/^\s/g, '')),
-        speciality: speciality.split(',').map(x => x.replace(/^\s/g, '')),
-        phone: phone.split(',').map(x => x.replace(/^\s/g, ''))
+        name: name ? name : null,
+        department: department ? department : null,
+        organization: organization ? organization : null,
+        location: location ? location : null,
+        address: address ? address : null,
+        qualification: qualification ? qualification : null,
+        speciality: speciality ? speciality : null,
+        phone: phone ? phone : null,
     }
     editRecord(providerID, data)
 }
 
+const submitCreateRecord = () => {
+    // TODO: Check for null values
+    var name = document.querySelector('#create-overlay').childNodes[1].children[1].children[1].children[0].value
+    var department = document.querySelector('#create-overlay').childNodes[1].children[5].children[1].children[0].value
+    var organization = document.querySelector('#create-overlay').childNodes[1].children[6].children[1].children[0].value
+    var location = document.querySelector('#create-overlay').childNodes[1].children[7].children[1].children[0].value
+    var address = document.querySelector('#create-overlay').childNodes[1].children[8].children[1].children[0].value
+    var qualification = document.querySelector('#create-overlay').childNodes[1].children[2].children[1].children[0].value
+    var speciality = document.querySelector('#create-overlay').childNodes[1].children[3].children[1].children[0].value
+    var phone = document.querySelector('#create-overlay').childNodes[1].children[4].children[1].children[0].value
+
+    qualification = qualification.split(',').map(x => x.replace(/^\s/g, ''))
+    speciality = speciality.split(',').map(x => x.replace(/^\s/g, ''))
+    phone = phone.split(',').map(x => x.replace(/^\s/g, ''))
+
+    var data = {
+        name: name ? name : null,
+        department: department ? department : null,
+        organization: organization ? organization : null,
+        location: location ? location : null,
+        address: address ? address : null,
+        qualification: qualification ? qualification : null,
+        speciality: speciality ? speciality : null,
+        phone: phone ? phone : null,
+    }
+    // console.log(data)
+    createRecord(data)
+}
 
 /**
  * Toggles the show overlay
