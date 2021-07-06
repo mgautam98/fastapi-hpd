@@ -264,11 +264,11 @@
         </div>
 
         <!-- Notifications -->
-        <div class="absolute inset-0 h-screen">
+        <div class="absolute inset-0 hidden h-screen" id="toast">
             <!-- Success -->
             <div class="items-center justify-center hidden text-white" id="success-toast">
                 <div
-                    class="flex w-full max-w-sm px-3 py-3 mt-10 space-x-2 overflow-hidden bg-green-400 rounded-lg shadow-2xl">
+                    class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-green-400 rounded-lg shadow-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -279,9 +279,10 @@
                 </div>
             </div>
 
+            <!-- info toast -->
             <div class="items-center justify-center hidden text-white" id="info-toast">
                 <div
-                    class="flex w-full max-w-sm px-3 py-3 mt-10 space-x-2 overflow-hidden bg-blue-400 rounded-lg shadow-2xl">
+                    class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-blue-400 rounded-lg shadow-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -292,9 +293,10 @@
                 </div>
             </div>
 
+            <!-- error toast -->
             <div class="items-center justify-center hidden text-white" id="error-toast">
                 <div
-                    class="flex w-full max-w-sm px-3 py-3 mt-10 space-x-2 overflow-hidden bg-red-400 rounded-lg shadow-2xl">
+                    class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-red-400 rounded-lg shadow-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -304,6 +306,7 @@
                     <span id="error-toast-msg" class="pl-1">The error message goes here</span>
                 </div>
             </div>
+
         </div>
 
     </div>
