@@ -64,7 +64,7 @@ const getRecord = (id => {
             addDataToShowOverlay(response.data)
             toggleShowOverlay()
         })
-        .catch(error => console.error(error))
+        .catch(error => errorToast(error))
 })
 
 
@@ -77,12 +77,13 @@ const editRecord = (id, data) => {
     axios.put(`/api/provider/${id}`, data)
         .then(response => {
             if (response.status != 204) {
-                console.log(response)
+                errorToast(response.detail)
                 return
             }
             toggleEditOverlay()
+            successToast('Record Saved Successfully!')
         })
-        .catch(error => console.error(error))
+        .catch(error => errorToast(error.details))
 }
 
 /**
@@ -99,7 +100,7 @@ const getRecordAndEdit = (id) => {
             addDataToEditOverlay(response.data)
             toggleEditOverlay()
         })
-        .catch(error => console.error(error))
+        .catch(error => errorToast(error))
 }
 
 /**
@@ -114,8 +115,9 @@ const createRecord = (data) => {
                 return
             }
             toggleCreateOverlay()
+            successToast('Record Created Successfully!')
         })
-        .catch(error => console.error(error))
+        .catch(error => errorToast(error))
 }
 
 
@@ -126,15 +128,16 @@ const createRecord = (data) => {
 const deleteRecord = (id => {
     axios.delete(`/api/provider/${id}`)
         .then(response => {
-            if (response.status != 200) {
-                console.log(response)
+            if (response.status != 204) {
+                errorToast(response.detail)
                 return
             }
+            successToast('Record Deleted Successfully!')
         })
         .then(() => {
             document.getElementById(id).remove()
         })
-        .catch(error => console.error(error))
+        .catch(error => errorToast(error))
 })
 
 
