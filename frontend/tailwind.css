@@ -4,27 +4,27 @@
 
 
 .page-nav {
-    @apply font-bold text-xs rounded px-2 py-1 bg-gray-400 hover:bg-gray-500;
+    @apply px-2 py-1 text-xs font-bold bg-gray-400 rounded hover:bg-gray-500;
 }
 
 .main-container {
-    @apply h-screen flex flex-col items-center px-8 py-20;
+    @apply flex flex-col items-center h-screen px-8 py-20;
 }
 
 .table-style {
-    @apply text-left w-full border-collapse;
+    @apply w-full text-left border-collapse;
 }
 
 .table-title-col {
-    @apply py-4 px-3 font-bold uppercase text-sm text-gray-600 border-b;
+    @apply px-3 py-4 text-sm font-bold text-gray-600 uppercase border-b;
 }
 
 .table-item {
-    @apply py-4 px-3 text-sm border-b;
+    @apply px-3 py-4 text-sm border-b;
 }
 
 .table-button {
-    @apply font-semibold py-1 px-3 rounded text-xs;
+    @apply px-3 py-1 text-xs font-semibold rounded;
 }
 
 .table-row {
@@ -44,27 +44,27 @@
 }
 
 .search-input {
-    @apply flex border rounded items-center p-2 flex-1 shadow-lg;
+    @apply flex items-center flex-1 p-2 border rounded shadow-lg;
 }
 
 .search-input-style {
-    @apply w-full text-gray-800 text-xl px-4;
+    @apply w-full px-4 text-xl text-gray-800;
 }
 
 .search-button {
-    @apply bg-blue-500 hover:bg-blue-700 font-medium text-white py-3 px-10 flex-none mx-2 border rounded shadow-2xl;
+    @apply flex-none px-10 py-3 mx-2 font-medium text-white bg-blue-500 border rounded shadow-2xl hover:bg-blue-700;
 }
 
 .overlay-bg {
-    @apply bg-gray-800 bg-opacity-30 absolute inset-0 justify-center items-center;
+    @apply absolute inset-0 items-center justify-center bg-gray-800 bg-opacity-30;
 }
 
 .show-overlay {
-    @apply bg-white rounded px-5 py-1 text-sm text-gray-800 flex flex-col;
+    @apply flex flex-col px-5 py-1 text-sm text-gray-800 bg-white rounded;
 }
 
 .show-overlay-header {
-    @apply flex justify-center items-center border-b-2;
+    @apply flex items-center justify-center border-b-2;
 }
 
 .show-overlay-title {
@@ -72,15 +72,15 @@
 }
 
 .activity-indicator {
-    @apply mx-2 px-2 py-1 bg-green-300 rounded-xl text-xs font-light text-black;
+    @apply px-2 py-1 mx-2 text-xs font-light text-black bg-green-300 rounded-xl;
 }
 
 .overlay-item {
-    @apply py-2 flex space-x-10;
+    @apply flex py-2 space-x-10;
 }
 
 .overlay-item-title {
-    @apply font-semibold w-1/4;
+    @apply w-1/4 font-semibold;
 }
 
 .overlay-item-content {
@@ -88,17 +88,17 @@
 }
 
 .overlay-item-contents {
-    @apply w-3/4 flex flex-col;
+    @apply flex flex-col w-3/4;
 }
 
 .overlay-close {
-    @apply flex justify-center items-center my-2;
+    @apply flex items-center justify-center my-2;
 }
 
 .overlay-close-button {
-    @apply bg-blue-200 rounded-lg text-sm px-2 py-1 hover:bg-blue-500;
+    @apply px-2 py-1 text-sm bg-blue-200 rounded-lg hover:bg-blue-500;
 }
 
 .edit-overlay {
-    @apply bg-white rounded px-5 py-3 text-sm text-gray-800 flex flex-col min-w-max w-1/4;
+    @apply flex flex-col w-1/4 px-5 py-3 text-sm text-gray-800 bg-white rounded min-w-max;
 }
