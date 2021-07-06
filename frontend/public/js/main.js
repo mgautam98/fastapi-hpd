@@ -80,7 +80,7 @@ const editRecord = (id, data) => {
                 console.log(response)
                 return
             }
-            getRecord(id)
+            toggleEditOverlay()
         })
         .catch(error => console.error(error))
 }
@@ -262,6 +262,7 @@ const addDataToShowOverlay = (data) => {
 const addDataToEditOverlay = (data) => {
     header = document.querySelector('#edit-overlay').childNodes[1].children[0]
     header.children[0].textContent = data.name
+    header.children[0].id = data.providerID
 
     name_ = document.querySelector('#edit-overlay').childNodes[1].children[1]
     name_.children[1].children[0].value = data.name
@@ -279,25 +280,38 @@ const addDataToEditOverlay = (data) => {
     address.children[1].children[0].value = data.address
 
     qualification = document.querySelector('#edit-overlay').childNodes[1].children[2]
-    qualification_str = ""
-    for (quals in data.qualification) {
-        qualification_str += data.qualification[quals] + ","
-    }
-    qualification.children[1].children[0].value = qualification_str
+    qualification.children[1].children[0].value = data.qualification.join(', ')
 
     speciality = document.querySelector('#edit-overlay').childNodes[1].children[3]
-    speciality_str = ""
-    for (specialities in data.speciality) {
-        speciality_str += data.speciality[specialities] + ","
-    }
-    speciality.children[1].children[0].value = speciality_str
+    speciality.children[1].children[0].value = data.speciality.join(', ')
 
     phone = document.querySelector('#edit-overlay').childNodes[1].children[4]
-    phone_str = ""
-    for (phones in data.phone) {
-        phone_str += data.phone[phones] + ","
+    phone.children[1].children[0].value = data.phone.join(', ')
+}
+
+const submitEditRecord = () => {
+    // TODO: Check for null values
+    var providerID = document.querySelector('#edit-overlay').childNodes[1].children[0].children[0].id
+    var name = document.querySelector('#edit-overlay').childNodes[1].children[1].children[1].children[0].value
+    var department = document.querySelector('#edit-overlay').childNodes[1].children[5].children[1].children[0].value
+    var organization = document.querySelector('#edit-overlay').childNodes[1].children[6].children[1].children[0].value
+    var location = document.querySelector('#edit-overlay').childNodes[1].children[7].children[1].children[0].value
+    var address = document.querySelector('#edit-overlay').childNodes[1].children[8].children[1].children[0].value
+    var qualification = document.querySelector('#edit-overlay').childNodes[1].children[2].children[1].children[0].value
+    var speciality = document.querySelector('#edit-overlay').childNodes[1].children[3].children[1].children[0].value
+    var phone = document.querySelector('#edit-overlay').childNodes[1].children[4].children[1].children[0].value
+
+    var data = {
+        name: name,
+        department: department,
+        organization: organization,
+        location: location,
+        address: address,
+        qualification: qualification.split(',').map(x => x.replace(/^\s/g, '')),
+        speciality: speciality.split(',').map(x => x.replace(/^\s/g, '')),
+        phone: phone.split(',').map(x => x.replace(/^\s/g, ''))
     }
-    phone.children[1].children[0].value = phone_str
+    editRecord(providerID, data)
 }
 
 
