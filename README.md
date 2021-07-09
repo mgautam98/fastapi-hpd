@@ -1,18 +1,19 @@
-
 # Healthcare Provider Directory APP
 
-Individual parts of projects are on follwing branches      
+Individual parts of projects are on follwing branches  
 `part_1`  
 `part_2`  
-`part_3`  
+`part_3`
 
 ## Generate mock data
+
 ```
 mkdir database
 python generate_data.py   # generates 300 records in pickle format
 ```
 
 ## Structure
+
 ```
 ├── app
 │   ├── core
@@ -57,7 +58,6 @@ Start the server
   uvicorn app.main:app --reload
 ```
 
-  
 ## Deployment
 
 To deploy this project run
@@ -65,7 +65,6 @@ To deploy this project run
 ```bash
   docker-compose up
 ```
-
 
 ## Running Tests
 
@@ -75,15 +74,13 @@ To run tests, run the following command
   pytest
 ```
 
-  
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
 `POSTGRES_URL`  
 `POSTGRES_USER`  
-`POSTGRES_PW`  
-
+`POSTGRES_PW`
 
 ## Screenshots
 
@@ -94,8 +91,7 @@ To run this project, you will need to add the following environment variables to
   <img src="https://i.imgur.com/eH3KXXt.png" alt="Mailsy" width="900"/>
 </p>
 
-
-<!-- 
+<!--
 ## API Reference
 
 #### Get all providers
@@ -118,4 +114,14 @@ To run this project, you will need to add the following environment variables to
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `UUID` | **Required**. Id of item to fetch |
+ -->
+
+Run Sonarqube
+
+<!--
+sonar-scanner \
+  -Dsonar.projectKey=python-project \
+  -Dsonar.sources=. \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=7656e444cbd8a437332d6cf1d9bc3176819368bb
  -->
