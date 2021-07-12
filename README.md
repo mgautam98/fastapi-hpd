@@ -116,7 +116,7 @@ To run this project, you will need to add the following environment variables to
 | `id`      | `UUID` | **Required**. Id of item to fetch |
  -->
 
-Run Sonarqube
+<!-- Run Sonarqube -->
 
 <!--
 sonar-scanner \
