@@ -20,10 +20,10 @@ python generate_data.py   # generates 300 records in pickle format
 │   ├── core                #
 │   │   ├── config.py       # setting and configurations
 │   │   ├── dataimp.py      # file database implimentation
-│   │   ├── exceptions.py   # exceptions used 
+│   │   ├── exceptions.py   # exceptions used
 │   │   └── utils.py        # utils
 │   ├── database.py         # database
-│   ├── repository          # 
+│   ├── repository          #
 │   │   └─ provider.py      # providers data access
 │   ├── routers             #
 │   │   └── provider.py     # providers routes
