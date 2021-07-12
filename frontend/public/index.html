@@ -1,458 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <title>Healthcare Provider Directory</title>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/styles.css" />
+        <title>Healthcare Provider Directory</title>
+    </head>
 
-  <body>
-    <div class="main-container">
-      <!-- Search Bar -->
-      <div class="flex w-1/2 py-8 mx-auto">
-        <div class="search-input">
-          <input
-            class="search-input-style focus:outline-none focus:shadow-outline"
-            type="text"
-            placeholder="search here.."
-          />
-        </div>
-        <div class="search-button">
-          <a href="#">Search</a>
-        </div>
-      </div>
+    <body>
+        <div class="main-container">
+            <!-- Search Bar -->
+            <div class="flex w-1/2 py-8 mx-auto">
+                <div class="search-input">
+                    <input
+                        class=" search-input-style focus:outline-none focus:shadow-outline"
+                        type="text"
+                        placeholder="search here.."
+                    />
+                </div>
+                <div class="search-button">
+                    <a href="#">Search</a>
+                </div>
+            </div>
 
-      <!-- results navigator -->
-      <div class="w-1/2 mx-auto">
-        <div class="my-6 bg-white rounded shadow-lg">
-          <table class="table-style">
-            <thead class="bg-gray-200">
-              <tr>
-                <th class="table-title-col">Name</th>
-                <th class="table-title-col">Organization</th>
-                <th class="table-title-col">Qualification</th>
-                <th class="table-title-col">
-                  <a
-                    class="flex items-center justify-center"
-                    onclick="toggleCreateOverlay()"
-                    href="#"
-                  >
-                    <div
-                      class="flex px-2 py-1 space-x-1 text-sm font-normal text-black bg-green-200 rounded-md  hover:bg-green-500"
-                    >
-                      <span>Create</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="w-5 h-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
+            <!-- results navigator -->
+            <div class="w-1/2 mx-auto">
+                <div class="my-6 bg-white rounded shadow-lg">
+                    <table class="table-style">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="table-title-col">Name</th>
+                                <th class="table-title-col">Organization</th>
+                                <th class="table-title-col">Qualification</th>
+                                <th class="table-title-col">
+                                    <a
+                                        class="flex items-center justify-center"
+                                        onclick="toggleCreateOverlay()"
+                                        href="#"
+                                    >
+                                        <div
+                                            class="flex px-2 py-1 space-x-1 text-sm font-normal text-black bg-green-200 rounded-md  hover:bg-green-500"
+                                        >
+                                            <span>Create</span>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="w-5 h-5"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="results"></tbody>
+                    </table>
+
+                    <!-- navigation buttons -->
+                    <div class="flex flex-col items-center py-2">
+                        <div class="text-sm text-gray-500">
+                            Showing results 1 to 10 of 200
+                        </div>
+                        <div>
+                            <a
+                                class="page-nav"
+                                onclick="getResults(true)"
+                                href="#"
+                                >Prev</a
+                            >
+                            <a class="page-nav" onclick="getResults()" href="#"
+                                >Next</a
+                            >
+                        </div>
                     </div>
-                  </a>
-                </th>
-              </tr>
-            </thead>
-            <tbody id="results"></tbody>
-          </table>
+                </div>
+            </div>
 
-          <!-- navigation buttons -->
-          <div class="flex flex-col items-center py-2">
-            <div class="text-sm text-gray-500">
-              Showing results 1 to 10 of 200
+            <!-- Show Overlay -->
+            <div class="hidden overlay-bg" id="show-overlay">
+                <div class="w-1/4 show-overlay min-w-max">
+                    <div class="show-overlay-header">
+                        <div class="show-overlay-title"></div>
+                        <div class="activity-indicator">active</div>
+                    </div>
+                    <div class="overlay-item">
+                        <div class="overlay-item-title">Qualifications</div>
+                        <div class="overlay-item-contents"></div>
+                    </div>
+                    <div class="overlay-item">
+                        <div class="overlay-item-title">Speciality</div>
+                        <div class="overlay-item-contents"></div>
+                    </div>
+                    <div class="overlay-item">
+                        <div class="overlay-item-title">Phone</div>
+                        <div class="overlay-item-contents"></div>
+                    </div>
+                    <div class="overlay-item">
+                        <div class="overlay-item-title">Department</div>
+                        <div class="overlay-item-content"></div>
+                    </div>
+
+                    <div class="overlay-item">
+                        <div class="overlay-item-title">Organization</div>
+                        <div class="overlay-item-content"></div>
+                    </div>
+                    <div class="overlay-item">
+                        <div class="overlay-item-title">Location</div>
+                        <div class="overlay-item-content"></div>
+                    </div>
+                    <div class="overlay-item">
+                        <div class="overlay-item-title">Address</div>
+                        <div class="overlay-item-content"></div>
+                    </div>
+                    <div class="overlay-close">
+                        <a
+                            href="#"
+                            onclick="toggleShowOverlay()"
+                            class="overlay-close-button"
+                            >Close</a
+                        >
+                    </div>
+                </div>
             </div>
-            <div>
-              <a class="page-nav" onclick="getResults(true)" href="#">Prev</a>
-              <a class="page-nav" onclick="getResults()" href="#">Next</a>
+
+            <!-- Edit Overlay -->
+            <div class="hidden overlay-bg" id="edit-overlay">
+                <div
+                    class="flex flex-col w-1/4 px-5 py-3 text-sm text-gray-800 bg-white rounded  min-w-max"
+                >
+                    <div class="flex items-center justify-center border-b-2">
+                        <div class="px-3 py-2 text-lg font-bold"></div>
+                        <svg
+                            class="w-5 h-5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                            />
+                        </svg>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Name*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 text-gray-700 bg-gray-100 border-2 rounded "
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Qualifications*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Speciality*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Phone*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Department</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                type="text"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Organization*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Location</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Address*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center justify-center my-2 space-x-3"
+                    >
+                        <a
+                            href="#"
+                            onclick="toggleEditOverlay()"
+                            class="px-2 py-1 text-sm bg-red-300 rounded-lg  hover:bg-red-500"
+                            >Cancel</a
+                        >
+                        <a
+                            href="#"
+                            onclick="submitEditRecord()"
+                            class="px-4 py-1 text-sm bg-yellow-300 rounded-lg  hover:bg-yellow-500"
+                            >Save</a
+                        >
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <!-- Create Overlay -->
+            <div class="hidden overlay-bg" id="create-overlay">
+                <div
+                    class="flex flex-col w-1/4 px-5 py-3 text-sm text-gray-800 bg-white rounded  min-w-max"
+                >
+                    <div class="flex items-center justify-center border-b-2">
+                        <div class="px-1 py-2 text-lg font-bold">Create</div>
+                        <svg
+                            class="w-5 h-5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Name*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 text-gray-700 bg-gray-100 border-2 rounded "
+                                placeholder="Norma Fisher"
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Qualifications*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                placeholder="Bachelor of Medicine & Surgery"
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Speciality*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                placeholder="Pain Management, Urology"
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Phone*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                placeholder="938-778-4080x16097"
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Department</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                placeholder="Medical Record Department"
+                                type="text"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Organization*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                placeholder="Castro-Gomez Clinic"
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Location</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                placeholder="Savageshire"
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div class="flex py-2 space-x-10">
+                        <div class="w-1/4 font-semibold">Address*</div>
+                        <div class="flex-1">
+                            <input
+                                class="w-full px-2 py-1 bg-gray-100 border-2 rounded "
+                                placeholder="466 Aaron Fields Ernestbury, NV 50131"
+                                type="text"
+                            />
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center justify-center my-2 space-x-3"
+                    >
+                        <a
+                            href="#"
+                            onclick="toggleCreateOverlay()"
+                            class="px-2 py-1 text-sm bg-red-300 rounded-lg  hover:bg-red-500"
+                            >Cancel</a
+                        >
+                        <a
+                            href="#"
+                            onclick="submitCreateRecord()"
+                            class="px-2 py-1 text-sm bg-green-300 rounded-lg  hover:bg-green-500"
+                            >Create</a
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications -->
+            <div class="absolute inset-0 hidden h-1/5" id="toast">
+                <!-- Success -->
+                <div
+                    class="items-center justify-center hidden text-white"
+                    id="success-toast"
+                >
+                    <div
+                        class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-green-400 rounded-lg shadow-2xl "
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                            />
+                        </svg>
+                        <div class="border"></div>
+                        <span id="success-toast-msg" class="pl-1"
+                            >The success message goes here</span
+                        >
+                    </div>
+                </div>
+
+                <!-- info toast -->
+                <div
+                    class="items-center justify-center hidden text-white"
+                    id="info-toast"
+                >
+                    <div
+                        class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-blue-400 rounded-lg shadow-2xl "
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                        <div class="border"></div>
+                        <span id="info-toast-msg" class="pl-1"
+                            >The info message goes here</span
+                        >
+                    </div>
+                </div>
+
+                <!-- error toast -->
+                <div
+                    class="items-center justify-center hidden text-white"
+                    id="error-toast"
+                >
+                    <div
+                        class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-red-400 rounded-lg shadow-2xl "
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"
+                            />
+                        </svg>
+                        <div class="border"></div>
+                        <span id="error-toast-msg" class="pl-1"
+                            >The error message goes here</span
+                        >
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </body>
 
-      <!-- Show Overlay -->
-      <div class="hidden overlay-bg" id="show-overlay">
-        <div class="w-1/4 show-overlay min-w-max">
-          <div class="show-overlay-header">
-            <div class="show-overlay-title"></div>
-            <div class="activity-indicator">active</div>
-          </div>
-          <div class="overlay-item">
-            <div class="overlay-item-title">Qualifications</div>
-            <div class="overlay-item-contents"></div>
-          </div>
-          <div class="overlay-item">
-            <div class="overlay-item-title">Speciality</div>
-            <div class="overlay-item-contents"></div>
-          </div>
-          <div class="overlay-item">
-            <div class="overlay-item-title">Phone</div>
-            <div class="overlay-item-contents"></div>
-          </div>
-          <div class="overlay-item">
-            <div class="overlay-item-title">Department</div>
-            <div class="overlay-item-content"></div>
-          </div>
-
-          <div class="overlay-item">
-            <div class="overlay-item-title">Organization</div>
-            <div class="overlay-item-content"></div>
-          </div>
-          <div class="overlay-item">
-            <div class="overlay-item-title">Location</div>
-            <div class="overlay-item-content"></div>
-          </div>
-          <div class="overlay-item">
-            <div class="overlay-item-title">Address</div>
-            <div class="overlay-item-content"></div>
-          </div>
-          <div class="overlay-close">
-            <a
-              href="#"
-              onclick="toggleShowOverlay()"
-              class="overlay-close-button"
-              >Close</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <!-- Edit Overlay -->
-      <div class="hidden overlay-bg" id="edit-overlay">
-        <div
-          class="flex flex-col w-1/4 px-5 py-3 text-sm text-gray-800 bg-white rounded  min-w-max"
-        >
-          <div class="flex items-center justify-center border-b-2">
-            <div class="px-3 py-2 text-lg font-bold"></div>
-            <svg
-              class="w-5 h-5"
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-              />
-            </svg>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Name*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 text-gray-700 bg-gray-100 border-2 rounded "
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Qualifications*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Speciality*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Phone*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Department</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                type="text"
-              />
-            </div>
-          </div>
-
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Organization*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Location</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Address*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex items-center justify-center my-2 space-x-3">
-            <a
-              href="#"
-              onclick="toggleEditOverlay()"
-              class="px-2 py-1 text-sm bg-red-300 rounded-lg hover:bg-red-500"
-              >Cancel</a
-            >
-            <a
-              href="#"
-              onclick="submitEditRecord()"
-              class="px-4 py-1 text-sm bg-yellow-300 rounded-lg  hover:bg-yellow-500"
-              >Save</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <!-- Create Overlay -->
-      <div class="hidden overlay-bg" id="create-overlay">
-        <div
-          class="flex flex-col w-1/4 px-5 py-3 text-sm text-gray-800 bg-white rounded  min-w-max"
-        >
-          <div class="flex items-center justify-center border-b-2">
-            <div class="px-1 py-2 text-lg font-bold">Create</div>
-            <svg
-              class="w-5 h-5"
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Name*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 text-gray-700 bg-gray-100 border-2 rounded "
-                placeholder="Norma Fisher"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Qualifications*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                placeholder="Bachelor of Medicine & Surgery"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Speciality*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                placeholder="Pain Management, Urology"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Phone*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                placeholder="938-778-4080x16097"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Department</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                placeholder="Medical Record Department"
-                type="text"
-              />
-            </div>
-          </div>
-
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Organization*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                placeholder="Castro-Gomez Clinic"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Location</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                placeholder="Savageshire"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex py-2 space-x-10">
-            <div class="w-1/4 font-semibold">Address*</div>
-            <div class="flex-1">
-              <input
-                class="w-full px-2 py-1 bg-gray-100 border-2 rounded"
-                placeholder="466 Aaron Fields Ernestbury, NV 50131"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="flex items-center justify-center my-2 space-x-3">
-            <a
-              href="#"
-              onclick="toggleCreateOverlay()"
-              class="px-2 py-1 text-sm bg-red-300 rounded-lg hover:bg-red-500"
-              >Cancel</a
-            >
-            <a
-              href="#"
-              onclick="submitCreateRecord()"
-              class="px-2 py-1 text-sm bg-green-300 rounded-lg  hover:bg-green-500"
-              >Create</a
-            >
-          </div>
-        </div>
-      </div>
-
-      <!-- Notifications -->
-      <div class="absolute inset-0 hidden h-1/5" id="toast">
-        <!-- Success -->
-        <div
-          class="items-center justify-center hidden text-white"
-          id="success-toast"
-        >
-          <div
-            class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-green-400 rounded-lg shadow-2xl "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-              />
-            </svg>
-            <div class="border"></div>
-            <span id="success-toast-msg" class="pl-1"
-              >The success message goes here</span
-            >
-          </div>
-        </div>
-
-        <!-- info toast -->
-        <div
-          class="items-center justify-center hidden text-white"
-          id="info-toast"
-        >
-          <div
-            class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-blue-400 rounded-lg shadow-2xl "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <div class="border"></div>
-            <span id="info-toast-msg" class="pl-1"
-              >The info message goes here</span
-            >
-          </div>
-        </div>
-
-        <!-- error toast -->
-        <div
-          class="items-center justify-center hidden text-white"
-          id="error-toast"
-        >
-          <div
-            class="flex w-full max-w-md px-3 py-3 mt-10 space-x-2 overflow-hidden bg-red-400 rounded-lg shadow-2xl "
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"
-              />
-            </svg>
-            <div class="border"></div>
-            <span id="error-toast-msg" class="pl-1"
-              >The error message goes here</span
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
-
-  <script src="js/axios.min.js"></script>
-  <script src="js/toasts.js"></script>
-  <script src="js/overlays.js"></script>
-  <script src="js/main.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/toasts.js"></script>
+    <script src="js/overlays.js"></script>
+    <script src="js/main.js"></script>
 </html>
