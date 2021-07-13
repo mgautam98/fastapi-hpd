@@ -30,7 +30,6 @@ async function getResults(prev = false) {
  * @param {int} limit - total records to return
  * */
 async function getAllRecords(skip = 0, limit = 10) {
-    await clearResults();
     fetch(`/api/provider/?skip=${skipG}&limit=${limitG}`)
         .then((response) => {
             if (response.status != 200) {
@@ -38,9 +37,10 @@ async function getAllRecords(skip = 0, limit = 10) {
                 return;
             }
             response.json().then((data) => {
+                clearResults();
                 data = data.map(addRow);
                 data.map(addToTable);
-                return;
+                changePageShow();
             });
         })
         .catch((err) => console.log(err));
@@ -154,6 +154,13 @@ const showError = (error) => {
         // Something happened in setting up the request that triggered an Error
         errorToast("Can not make request! Try again");
     }
+};
+
+const changePageShow = () => {
+    pageShow = document.getElementById("page-show");
+    pageShow.textContent = `Showing results ${skipG + 1} to ${
+        skipG + limitG
+    } of 200`;
 };
 
 /* Initialize DOM */

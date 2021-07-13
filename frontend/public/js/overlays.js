@@ -248,8 +248,8 @@ const addRow = (data) => {
 /**
  * Helper function to clear table
  * */
-async function clearResults() {
-    results = await document.getElementById("results");
+function clearResults() {
+    results = document.getElementById("results");
     var tableHeaderRowCount = 0;
     var rowCount = results.rows.length;
     for (var i = tableHeaderRowCount; i < rowCount; i++) {
