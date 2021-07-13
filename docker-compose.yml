@@ -9,6 +9,17 @@ services:
         command: uvicorn app.main:app --reload --host 0.0.0.0 --workers 2
         volumes:
             - .:/app
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: test_db
+        networks:
+            - postgres
+        depends_on:
+            - db
+        restart: on-failure
+
+
     db:
         container_name: db_container
         image: postgres
@@ -24,6 +35,8 @@ services:
             - "5432:5432"
         networks:
             - postgres
+        restart: on-failure
+
 
     pgadmin:
         container_name: pgadmin4
@@ -38,10 +51,13 @@ services:
             - "5050:80"
         networks:
             - postgres
+        restart: on-failure
+
 
 volumes:
     postgres:
     pgadmin:
+
 
 networks:
     postgres:
