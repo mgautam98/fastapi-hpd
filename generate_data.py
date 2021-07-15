@@ -1,10 +1,13 @@
-from faker import Faker
-from random import randint, choice
+import aiosql
 from app.schemas import HealthcareProvider
+from faker import Faker
 from fastapi.encoders import jsonable_encoder
-import pickle
 import json
 import os
+import pathlib
+import pickle
+import psycopg2
+from random import randint, choice
 
 Faker.seed(0)
 
@@ -159,6 +162,55 @@ def save_json(data, path="./database/records.json"):
         f.write(json_data)
 
 
+def SaveToDatabase(data):
+    conn = psycopg2.connect(
+        host="localhost", dbname="providers", user="root", password="root"
+    )
+
+    queries = aiosql.from_path(
+        pathlib.Path(__file__).parent / "app/providers.sql", "psycopg2"
+    )
+
+    queries.delete_all_providers(conn)
+    conn.commit()
+
+    for record in data:
+        queries.create_provider(
+            conn,
+            providerid=record["providerID"],
+            name=record["name"],
+            active=record["active"],
+            organization=record["organization"],
+            address=record["address"],
+            department=record["department"],
+            location=record["location"],
+        )
+
+        for each in record["phone"]:
+            queries.add_phone_numbers(
+                conn,
+                providerid=record["providerID"],
+                phone=each,
+            )
+
+        for each in record["qualification"]:
+            queries.add_qualifications(
+                conn,
+                providerid=record["providerID"],
+                qualification=each,
+            )
+
+        for each in record["speciality"]:
+            queries.add_specialities(
+                conn,
+                providerid=record["providerID"],
+                speciality=each,
+            )
+
+        conn.commit()
+
+
 if __name__ == "__main__":
-    save_pickle(generate(300))
+    # save_pickle(generate(300))
     # save_json(generate(300))
+    SaveToDatabase(generate(300))
