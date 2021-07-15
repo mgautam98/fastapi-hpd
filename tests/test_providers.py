@@ -21,6 +21,11 @@ def test_provider_not_exists():
     assert response.status_code == 404
 
 
+def test_bad_uuid():
+    response = client.get("/api/provider/bad_uuid")
+    assert response.status_code == 442
+
+
 def test_create_a_provider():
     pass
 
