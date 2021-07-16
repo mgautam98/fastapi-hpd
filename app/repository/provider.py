@@ -1,12 +1,15 @@
 from fastapi import HTTPException, status, Response
 from fastapi.encoders import jsonable_encoder
-from app.database import db
+from app.database import db, queries, get_connection
 from app import schemas
 from uuid import UUID
 
 
+conn = get_connection()
+
+
 def get_all(skip: int, limit: int):
-    return [*db.values()][skip : skip + limit]
+    return queries.get_all_providers(next(conn), limit=limit, offset=skip)
 
 
 def get(providerID: UUID):

@@ -27,6 +27,15 @@ class HealthcareProviderBase(BaseModel):
         return v
 
 
+class HealthcareProviderMin(BaseModel):
+    active: Optional[bool] = True
+    name: constr(min_length=2, max_length=40)
+    department: Optional[str] = None
+    organization: str
+    location: Optional[str] = None
+    address: str
+
+
 class HealthcareProvider(BaseModel):
     providerID: UUID = Field(default_factory=uuid4)
     active: Optional[bool] = True

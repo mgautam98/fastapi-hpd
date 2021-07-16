@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from psycopg2 import pool
 
 # ################
 # FastAPI App
@@ -22,6 +23,32 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.on_event("startup")
+def startup_handler():
+    """
+    Creates pool of reusable connections
+    for database
+    """
+    app.state.pool = pool.SimpleConnectionPool(
+        1,
+        20,
+        host="localhost",
+        port=5432,
+        dbname="providers",
+        user="root",
+        password="root",
+    )
+
+
+@app.on_event("shutdown")
+def shutdown_handler():
+    """
+    Closes all the database connections
+    """
+    app.state.pool.closeall
+
+
 # ################
 # Routing
 # ################
@@ -35,6 +62,19 @@ app.mount("/app", StaticFiles(directory="frontend/public", html=True), name="pub
 @app.get("/")
 def docs_redirect():
     return RedirectResponse(url="/app")
+
+
+# ################
+# Database
+# ################
+
+
+# def get_connection():
+#     conn = app.state.pool.getconn()
+#     try:
+#         yield conn
+#     finally:
+#         app.state.pool.putconn(conn)
 
 
 # ################

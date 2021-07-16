@@ -4,19 +4,19 @@ limit :limit offset :offset;
 
 -- name: get_provider_by_id
 select * from providers
-    where id = :providerid;
+    where providerid = :providerid;
 
 -- name: get_phone_by_provider_id
 select phone from providers
-    where id = :providerid;
+    where providerid = :providerid;
 
 -- name: get_speclialty_by_provider_id
 select specialty from providers
-    where id = :providerid;
+    where providerid = :providerid;
 
 -- name: get_qualification_by_provider_id
 select qualification from providers
-    where id = :providerid;
+    where providerid = :providerid;
 
 -- name: create_provider
 insert into providers(providerid, active, name, organization, address, department, location)
@@ -50,7 +50,11 @@ update providers
         address = :address,
         department = :department,
         location = :location
-    where id = :providerid;
+    where providerid = :providerid;
+
+-- name: delete_provider_by_id
+delete from providers
+    where providerid = :providerid;
 
 -- name: delete_all_providers
 delete from providers
