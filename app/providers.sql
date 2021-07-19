@@ -50,7 +50,26 @@ update providers
         address = :address,
         department = :department,
         location = :location
-    where providerid = :providerid;
+    where providerid = :providerid
+returning providerid;
+
+-- name: update_phone_numbers
+update phone_numbers
+    set phone = :phone
+    where providerid = :providerid
+returning providerid;
+
+-- name: update_qualifications
+update qualifications
+    set qualification = :qualification
+    where providerid = :providerid
+returning providerid;
+
+-- name: update_specialities
+update specialities
+    set speciality = :speciality
+    where providerid = :providerid
+returning providerid;
 
 -- name: delete_provider_by_id
 delete from providers

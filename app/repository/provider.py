@@ -40,17 +40,47 @@ def create(request: schemas.HealthcareProviderBase):
 
 
 def update(providerID: UUID, request: schemas.HealthcareProviderBase):
-    updated_provider = jsonable_encoder(schemas.HealthcareProvider.from_orm(request))
     providerID: str = jsonable_encoder(providerID)
 
-    if not db.find(providerID):
+    with get_connection() as conn:
+        provider = queries.get_provider_by_id(conn, providerid=providerID)
+
+    if len(provider) == 0:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Health Provider with id {str(providerID)} does not exists",
         )
 
-    updated_provider["providerID"] = providerID
-    db.update(providerID, updated_provider)
+    with get_connection() as conn:
+        provider_status = queries.update_provider(
+            conn,
+            active=request.active,
+            name=request.name,
+            organization=request.organization,
+            address=request.address,
+            department=request.department,
+            location=request.location,
+            providerid=providerID,
+        )
+        for phone in request.phone:
+            queries.update_phone_numbers(conn, phone=phone, providerid=providerID)
+
+        for qualification in request.qualification:
+            queries.update_qualifications(
+                conn, qualification=qualification, providerid=providerID
+            )
+
+        for speciality in request.speciality:
+            queries.update_specialities(
+                conn, speciality=speciality, providerid=providerID
+            )
+
+    if len(provider_status) == 0:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Error updating Health Provider with id {str(providerID)}",
+        )
+
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
