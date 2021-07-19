@@ -187,7 +187,6 @@ const searchProviders = () => {
             data = data.map(addRow);
             data.map(addToTable);
             changePageShow();
-            console.log(response.data);
         })
         .catch((error) => showError(error));
 };
