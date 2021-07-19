@@ -7,7 +7,7 @@ from uuid import UUID
 router = APIRouter(prefix="/provider", tags=["Healthcare Providers"])
 
 
-@router.get("/", response_model=List[schemas.HealthcareProviderBase])
+@router.get("/", response_model=List[schemas.HealthcareProvider])
 def get_all(skip: int = 0, limit: int = 10):
     return provider.get_all(skip, limit)
 

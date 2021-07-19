@@ -1,5 +1,6 @@
 from fastapi import HTTPException, status, Response
 from fastapi.encoders import jsonable_encoder
+from app.core.utils import get_all_keys, build_dictionary
 from app.database import db, queries, get_connection
 from app import schemas
 from uuid import UUID
@@ -56,6 +57,9 @@ def destroy(providerID: UUID):
 
 
 def search(request: schemas.SearchRequest):
-    # search_query = queries.search_query(request)
-    # result = conn.execute(search_query)
-    return "Results"
+    with get_connection() as conn:
+        results_values = queries.search_providers(
+            conn, query=request.term, limit=request.limit, offset=request.offset
+        )
+    results_dict = build_dictionary(get_all_keys, results_values)
+    return results_dict
