@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status, Response
 from fastapi.encoders import jsonable_encoder
 from app.core.utils import build_providers, build_provider
-from app.database import db, queries, get_connection
+from app.database import queries, get_connection
 from app import schemas
 from uuid import UUID
 
