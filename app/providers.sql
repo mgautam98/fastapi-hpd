@@ -59,3 +59,11 @@ delete from providers
 -- name: delete_all_providers
 delete from providers
 returning *;
+
+-- name: search_providers
+select providerid, name, active, department, organization, location, address
+from (
+    select providerid, name, active, department, organization, location, address, tsv
+    from providers, plainto_tsquery(:query) as q
+    where (tsv @@ q)
+) as t1 order by ts_rank_cd(tsv, plainto_tsquery(:query)) desc limit :limit offset :offset;
