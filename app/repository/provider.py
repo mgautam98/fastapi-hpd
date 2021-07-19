@@ -56,12 +56,15 @@ def update(providerID: UUID, request: schemas.HealthcareProviderBase):
 
 def destroy(providerID: UUID):
     providerID: str = jsonable_encoder(providerID)
-    if not db.find(providerID):
+
+    with get_connection() as conn:
+        deleted_id = queries.delete_provider_by_id(conn, providerid=providerID)
+
+    if len(deleted_id) == 0:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Health Provider with id {str(providerID)} does not exists",
         )
-    db.delete(providerID)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 

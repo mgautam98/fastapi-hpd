@@ -54,7 +54,8 @@ update providers
 
 -- name: delete_provider_by_id
 delete from providers
-    where providerid = :providerid;
+    where providerid = :providerid
+returning providerid;
 
 -- name: delete_all_providers
 delete from providers

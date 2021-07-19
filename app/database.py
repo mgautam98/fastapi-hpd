@@ -17,4 +17,5 @@ def get_connection():
     try:
         yield conn
     finally:
+        conn.commit()
         main.app.state.pool.putconn(conn)
