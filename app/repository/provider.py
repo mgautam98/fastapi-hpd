@@ -9,7 +9,7 @@ conn = get_connection()
 
 
 def get_all(skip: int, limit: int):
-    return queries.get_all_providers(next(conn), limit=limit, offset=skip)
+    return [*db.values()][skip : skip + limit]
 
 
 def get(providerID: UUID):
@@ -53,3 +53,9 @@ def destroy(providerID: UUID):
         )
     db.delete(providerID)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+def search(request: schemas.SearchRequest):
+    # search_query = queries.search_query(request)
+    # result = conn.execute(search_query)
+    return "Results"

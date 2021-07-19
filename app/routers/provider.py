@@ -7,10 +7,8 @@ from uuid import UUID
 router = APIRouter(prefix="/provider", tags=["Healthcare Providers"])
 
 
-@router.get("/")
+@router.get("/", response_model=List[schemas.HealthcareProviderBase])
 def get_all(skip: int = 0, limit: int = 10):
-    # resp = provider.get_all(skip, limit)
-    # print(resp)
     return provider.get_all(skip, limit)
 
 
@@ -34,3 +32,8 @@ def update(providerID: UUID, request: schemas.HealthcareProviderBase):
 @router.delete("/{providerID}", status_code=status.HTTP_204_NO_CONTENT)
 def delete(providerID: UUID):
     return provider.destroy(providerID)
+
+
+@router.post("/search")
+def search(request: schemas.SearchRequest):
+    return provider.search(request)

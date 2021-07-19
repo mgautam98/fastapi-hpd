@@ -71,3 +71,10 @@ class HealthcareProvider(BaseModel):
                 "address": "string",
             }
         }
+
+
+class SearchRequest(BaseModel):
+    term: str
+    limit: int = 10
+    offset: int = 0
+    filters: Optional[List[str]] = None
