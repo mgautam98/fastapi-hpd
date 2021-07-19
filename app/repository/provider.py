@@ -35,7 +35,39 @@ def get(providerID: UUID):
 
 def create(request: schemas.HealthcareProviderBase):
     new_provider = jsonable_encoder(schemas.HealthcareProvider.from_orm(request))
-    db.add(new_provider)
+
+    with get_connection() as conn:
+        status = queries.create_provider(
+            conn,
+            active=request.active,
+            name=request.name,
+            organization=request.organization,
+            address=request.address,
+            department=request.department,
+            location=request.location,
+            providerid=new_provider["providerID"],
+        )
+        for phone in request.phone:
+            queries.add_phone_numbers(
+                conn, phone=phone, providerid=new_provider["providerID"]
+            )
+
+        for qualification in request.qualification:
+            queries.add_qualifications(
+                conn, qualification=qualification, providerid=new_provider["providerID"]
+            )
+
+        for speciality in request.speciality:
+            queries.add_specialities(
+                conn, speciality=speciality, providerid=new_provider["providerID"]
+            )
+
+    if status == 0:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Error creating provider",
+        )
+
     return new_provider
 
 
