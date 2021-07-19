@@ -1,9 +1,9 @@
 -- name: get_all_providers
-select * from providers
+select providerid, name, active, department, organization, location, address from providers
 limit :limit offset :offset;
 
 -- name: get_provider_by_id
-select * from providers
+select providerid, name, active, department, organization, location, address from providers
     where providerid = :providerid;
 
 -- name: get_phone_by_provider_id

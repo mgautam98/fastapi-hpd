@@ -220,13 +220,21 @@ const addRow = (data) => {
             : data.organization.substring(0, 20) + "...";
     tr.appendChild(org);
 
-    qual = document.createElement("td");
-    qual.classList.add("table-item");
-    qual.textContent =
-        data.qualification[0].length <= 15
-            ? data.qualification[0]
-            : data.qualification[0].substring(0, 15) + "...";
-    tr.appendChild(qual);
+    // qual = document.createElement("td");
+    // qual.classList.add("table-item");
+    // qual.textContent =
+    //     data.qualification[0].length <= 15
+    //         ? data.qualification[0]
+    //         : data.qualification[0].substring(0, 15) + "...";
+    // tr.appendChild(qual);
+
+    address = document.createElement("td");
+    address.classList.add("table-item");
+    address.textContent =
+        data.address.length <= 20
+            ? data.address
+            : data.address.substring(0, 20) + "...";
+    tr.appendChild(address);
 
     operations = document.createElement("td");
     operations.classList.add("table-item");

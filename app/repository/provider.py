@@ -6,11 +6,11 @@ from app import schemas
 from uuid import UUID
 
 
-conn = get_connection()
-
-
 def get_all(skip: int, limit: int):
-    return [*db.values()][skip : skip + limit]
+    with get_connection() as conn:
+        results_values = queries.get_all_providers(conn, limit=limit, offset=skip)
+    results_dict = build_dictionary(get_all_keys, results_values)
+    return results_dict
 
 
 def get(providerID: UUID):
