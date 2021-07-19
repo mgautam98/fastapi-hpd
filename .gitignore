@@ -6,3 +6,4 @@ database.pickle
 
 node_modules/
 .scannerwork
+.pytest_cache
