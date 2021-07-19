@@ -163,5 +163,34 @@ const changePageShow = () => {
     } of 200`;
 };
 
+const searchProviders = () => {
+    var term = document.getElementById("search-text").value;
+
+    if (term.length < 3) {
+        return;
+    }
+    data = {
+        term: term,
+        limit: 10,
+        offset: 0,
+        filters: [],
+    };
+    axios
+        .post("/api/provider/search", data)
+        .then((response) => {
+            if (response.status != 200) {
+                console.log(response);
+                return;
+            }
+            clearResults();
+            data = response.data;
+            data = data.map(addRow);
+            data.map(addToTable);
+            changePageShow();
+            console.log(response.data);
+        })
+        .catch((error) => showError(error));
+};
+
 /* Initialize DOM */
 init();
