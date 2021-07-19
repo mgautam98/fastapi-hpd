@@ -7,15 +7,15 @@ select providerid, name, active, department, organization, location, address fro
     where providerid = :providerid;
 
 -- name: get_phone_by_provider_id
-select phone from providers
+select phone from phone_numbers
     where providerid = :providerid;
 
 -- name: get_speclialty_by_provider_id
-select specialty from providers
+select speciality from specialities
     where providerid = :providerid;
 
 -- name: get_qualification_by_provider_id
-select qualification from providers
+select qualification from qualifications
     where providerid = :providerid;
 
 -- name: create_provider

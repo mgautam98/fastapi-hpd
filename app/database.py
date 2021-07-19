@@ -7,7 +7,6 @@ import pathlib
 
 db = FileDatabase(path=settings.DATABASE_PATH)
 
-# db = DatabaseShelve(path=settings.DATABASE_PATH)
 
 queries = aiosql.from_path(pathlib.Path(__file__).parent / "providers.sql", "psycopg2")
 

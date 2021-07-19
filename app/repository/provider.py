@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status, Response
 from fastapi.encoders import jsonable_encoder
-from app.core.utils import get_all_keys, build_dictionary
+from app.core.utils import build_providers, build_provider
 from app.database import db, queries, get_connection
 from app import schemas
 from uuid import UUID
@@ -9,19 +9,28 @@ from uuid import UUID
 def get_all(skip: int, limit: int):
     with get_connection() as conn:
         results_values = queries.get_all_providers(conn, limit=limit, offset=skip)
-    results_dict = build_dictionary(get_all_keys, results_values)
+    results_dict = build_providers(results_values)
     return results_dict
 
 
 def get(providerID: UUID):
     providerID: str = jsonable_encoder(providerID)
-    provider = db.find(providerID)
-    if not provider:
+    with get_connection() as conn:
+        provider = queries.get_provider_by_id(conn, providerid=providerID)
+        phone_number = queries.get_phone_by_provider_id(conn, providerid=providerID)
+        specialities = queries.get_speclialty_by_provider_id(
+            conn, providerid=providerID
+        )
+        qualifications = queries.get_qualification_by_provider_id(
+            conn, providerid=providerID
+        )
+    if len(provider) == 0:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Health Provider with providerID {str(providerID)} does not exists",
         )
-    return provider
+    provider_dict = build_provider(provider, phone_number, qualifications, specialities)
+    return provider_dict
 
 
 def create(request: schemas.HealthcareProviderBase):
@@ -61,5 +70,5 @@ def search(request: schemas.SearchRequest):
         results_values = queries.search_providers(
             conn, query=request.term, limit=request.limit, offset=request.offset
         )
-    results_dict = build_dictionary(get_all_keys, results_values)
+    results_dict = build_providers(results_values)
     return results_dict
